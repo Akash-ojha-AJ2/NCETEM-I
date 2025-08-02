@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCETEM-I: National Conference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-color: #041E42;
+            --secondary-color: #00A896;
+            --light-bg: #F0F4F8;
+            --card-bg: #FFFFFF;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        .navbar {
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+        }
+        .navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+        }
+
+        .navbar .nav-link,
+        .navbar-brand {
+            color: var(--primary-color) !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .hero {
+            background: linear-gradient(120deg, var(--primary-color), #2c3e50);
+            color: white;
+            padding: 120px 20px 100px;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .hero h2 {
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-weight: 300;
+            font-size: 1.1rem;
+        }
+        .hero .btn-light {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .hero .btn-light:hover {
+            background-color: #008779;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-img-top {
+            height: 250px;
+            object-fit: cover;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        .about-section p {
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        table td {
+            background-color: var(--card-bg);
+        }
+
+        .registration-table .table {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+        .registration-table thead th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            border: none;
+        }
+        .registration-table tbody td {
+            background-color: var(--light-bg);
+            font-weight: 500;
+            border-color: rgba(0,0,0,0.05);
+        }
+        .registration-table tbody tr:hover {
+            background-color: #e2eaf2;
+        }
+
+        .qr-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+        .qr-card .btn-primary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .qr-card .btn-primary:hover {
+            background-color: #008779;
+        }
+
+        .organizing-committee .card-body {
+            background-color: var(--light-bg);
+            border-radius: 12px;
+        }
+        .organizing-committee .list-group-item {
+            background-color: transparent;
+            border-color: rgba(0, 0, 0, 0.05);
+            font-weight: 400;
+        }
+        .organizing-committee .card-title {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .footer {
+            background-color: var(--primary-color);
+            color: #d1d9e6;
+            padding: 3rem 0;
+        }
+        .footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer a:hover {
+            color: #fff;
+        }
+
+        .wave-divider {
+            position: relative;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            z-index: 1;
+        }
+
+        .wave-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 80px;
+        }
+
+        .wave-divider .shape-fill {
+            fill: #F0F4F8;
+        }
+
+        @media (max-width: 767px) {
+            .hero {
+                padding: 100px 20px 80px;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero h2 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="cropped-Group-Logo-1.png" alt="College Logo" style="height: 45px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about-conference">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#organizing-committee">Committee</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#registration">Registration</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#account-details">Payment</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about-gwalior">Gwalior</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about-college">SRCEM</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div style="margin-top: 70px;"></div>
+
+    <header class="hero" id="home">
+        <div class="container">
+            <h1>National Conference on Emerging Trends in Engineering & Management</h1>
+            <h2>NCETEM-I</h2>
+            <p>Organized by SRCEM & SRSBS | Sept 19, 2025 | Hotel MAXSUN, Gwalior</p>
+            <a href="#registration" class="btn btn-light mt-4 me-2">Register Now</a>
+            <a href="NATIONAL CONFERENCE BROCHURE_20250801_094634_0000.pdf" class="btn btn-outline-light mt-4">Download Brochure</a>
+        </div>
+
+    </header>
+
+    <main class="container py-5">
+        
+        <section id="about-conference" class="mb-5">
+            <h2 class="section-title text-center">About Conference</h2>
+            <div class="card p-4">
+                <p class="text-center lead">This National Conference serves as a premier platform to showcase cutting-edge methodologies, multidisciplinary research, and innovative technologies for sustainable growth. It fosters the exchange of new ideas, promotes the latest advancements, and encourages collaboration among leading academics, scientists, and industry experts.</p>
+                <p>By bridging academia and industry, the conference aims to drive futuristic solutions, address global challenges, and develop strategies for sustainable development. Attendees will gain opportunities to network, share research findings, and discuss emerging trends, practical challenges, and solutions across diverse fields. The event emphasizes a holistic approach to global progress, enhancing knowledge and fostering partnerships to accelerate innovation. Join renowned leaders and researchers to explore transformative ideas and shape the future of sustainable development.</p>
+            </div>
+        </section>
+
+        <section id="about-gwalior" class="my-5">
+            <h2 class="section-title text-center mb-4">About Gwalior City</h2>
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <p class="lead">Gwalior, located in the heart of Madhya Pradesh, is a historic and culturally vibrant city known for its majestic forts, classical music heritage, and architectural marvels. Often referred to as the “Cultural Capital of Madhya Pradesh,” the city is a unique blend of tradition and modernity.</p>
+                    <p>Gwalior is home to the renowned Gwalior Gharana, one of the oldest schools of Hindustani classical music, and has produced legendary artists over centuries. The city’s skyline is dominated by the iconic Gwalior Fort, a grand structure that stands as a testament to its royal past and strategic importance.</p>
+                    <p>Beyond history and music, Gwalior is also emerging as a growing hub for education, research, and innovation, with several reputed institutions and industries. Its strategic location and excellent connectivity via road, rail, and air make it an ideal destination for national and international events.</p>
+                    <p>Nearby attractions such as Mitawali, Padhawali, Kakanmath, and Sankua Dham offer visitors a glimpse into the region’s rich spiritual and architectural legacy. With its harmonious mix of history, culture, and progress, Gwalior welcomes all with warmth and inspiration.</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <img src="101.jpg" class="img-fluid rounded shadow-sm w-100 object-fit-cover" style="height: 250px;" alt="Gwalior Image 1">
+                        </div>
+                        <div class="col-6">
+                            <img src="102.jpg" class="img-fluid rounded shadow-sm w-100 object-fit-cover" style="height: 250px;" alt="Gwalior Image 2">
+                        </div>
+                        <div class="col-6">
+                            <img src="103.jpg" class="img-fluid rounded shadow-sm w-100 object-fit-cover" style="height: 250px;" alt="Gwalior Image 3">
+                        </div>
+                        <div class="col-6">
+                            <img src="104.jpg" class="img-fluid rounded shadow-sm w-100 object-fit-cover" style="height: 250px;" alt="Gwalior Image 4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-5">
+
+        <section id="about-college" class="about-section mt-5">
+            <h2 class="section-title text-center mb-4">About SRCEM</h2>
+            <div class="card p-4">
+                <div class="row align-items-center">
+                    <div class="col-md-6 order-md-2 mb-4 mb-md-0">
+                        <img src="college.jpg" alt="College Image" class="img-fluid rounded shadow-sm w-100 object-fit-cover" style="height: 350px;">
+                    </div>
+                    <div class="col-md-6 order-md-1">
+                        <p>Established in 1998, ShriRam College of Engineering & Management (SRCEM) has emerged as a center of excellence in technical and professional education in Central India. The institute is committed to academic rigor, innovation, and industrial relevance. Located in the serene surroundings of Banmore, near the historic city of Gwalior, the campus spans over 50 acres, offering an ideal environment for focused learning and all-round development.</p>
+                        <p>SRCEM is approved by AICTE and affiliated with RGPV, Bhopal. The college offers a wide array of undergraduate and postgraduate programs in engineering, management, and applied sciences. Its industry-aligned curriculum, modern laboratories, and ICT-enabled classrooms ensure students receive hands-on experience and practical exposure.</p>
+                        <p>With its motto of **“Knowledge is Power,”** SRCEM continues to inspire innovation, excellence, and leadership in every student.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-5">
+
+        <section id="about-praa" class="about-section mt-5">
+            <h2 class="section-title text-center mb-4">About PRAA Robotics & Research Lab</h2>
+            <div class="card p-4">
+                <div class="row align-items-center">
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <img src="ai-robot.jpg" alt="PRAA Lab Image" class="img-fluid rounded shadow-sm w-100 object-fit-cover" style="height: 350px;">
+                    </div>
+                    <div class="col-md-6">
+                        <p>The **PRAA Robotic Research & Development Labs** is a hub of technological excellence, committed to pushing the boundaries of Artificial Intelligence and Robotics. Our core belief is that innovation thrives in a collaborative ecosystem, where academia, industry, and society intersect.</p>
+                        <p>We conduct cutting-edge research in domains such as robotic automation, machine learning algorithms, natural language understanding, computer vision, and AI applications in healthcare, agriculture, and education. Our research not only aims for technical breakthroughs but also focuses on ethical implications and societal benefits of AI.</p>
+                        <p>By nurturing a culture of curiosity, inclusiveness, and purpose-driven innovation, PRAA Labs is determined to lead the charge in shaping an AI-enabled future that is sustainable, inclusive, and beneficial for all.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-5">
+
+<section id="registration" class="py-5">
+    <h2 class="section-title text-center">Registration</h2>
+    <div class="row g-4 align-items-stretch">
+        <div class="col-lg-7 d-flex">
+            <div class="card registration-table w-100">
+                <div class="card-body p-4">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Early Registration</th>
+                                    <th>Regular Registration</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Industry</td>
+                                    <td>₹1500</td>
+                                    <td>₹2000</td>
+                                </tr>
+                                <tr>
+                                    <td>Academician</td>
+                                    <td>₹1200</td>
+                                    <td>₹1500</td>
+                                </tr>
+                                <tr>
+                                    <td>Research Scholar</td>
+                                    <td>₹800</td>
+                                    <td>₹1000</td>
+                                </tr>
+                                <tr>
+                                    <td>Student</td>
+                                    <td>₹500</td>
+                                    <td>₹600</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mt-3 mb-1"><strong class="text-danger"><i class="bi bi-calendar-check-fill me-1"></i>Early Registration ends:</strong> **Aug 7, 2025**</p>
+                    <p class="mb-0"><strong class="text-danger"><i class="bi bi-calendar-x-fill me-1"></i>Last Date:</strong> **Aug 20, 2025**</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5 d-flex">
+            <div class="card qr-card p-4 d-flex flex-column justify-content-center align-items-center w-100">
+                <h5 class="fw-bold mb-3 text-secondary">Scan to Register</h5>
+                <img src="QR code.png" alt="QR Code" class="img-fluid mb-4" style="max-width: 250px;">
+                <a href="https://tinyurl.com/NATCONFGWL" class="btn btn-primary w-100" target="_blank">
+                    Open Registration Link
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+        
+        <hr class="my-5">
+
+        <section id="account-details" class="mt-5">
+            <h2 class="section-title text-center">Payment Details</h2>
+            <div class="card p-4">
+                <p class="lead">For all payments, please use the following details:</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong><i class="bi bi-person-fill me-2"></i>Account Name:</strong> PRAA ROBOTICS R&D Labs</p>
+                        <p><strong><i class="bi bi-upc-scan me-2"></i>UPI ID:</strong> boim-945819170766@boi</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong><i class="bi bi-bank me-2"></i>DD Payable at:</strong> Gwalior</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-5">
+
+        <section id="organizing-committee" class="my-5">
+            <h2 class="section-title text-center">Organizing Committee</h2>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-center"><i class="bi bi-person-check-fill me-2"></i>Chief Patrons</h5>
+                            <ul class="list-group list-group-flush text-center">
+                                <li class="list-group-item">Mr. Jitendra Sharma – Vice Chairman, SRGOC</li>
+                                <li class="list-group-item">Mrs. Nishtha Sharma – JT. Secretary, SRGOC</li>
+                                <li class="list-group-item">Ms. Swapnali Sharma – Executive Director</li>
+                                <li class="list-group-item">Dr. P.S. Chauhan – Director General</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-center"><i class="bi bi-stars me-2"></i>Patrons</h5>
+                            <ul class="list-group list-group-flush text-center">
+                                <li class="list-group-item">Prof. Ashok Kumar – President, ISLS & SRF</li>
+                                <li class="list-group-item">Dr. Joydip Dhar – Professor, ABV-IIITM, Gwalior</li>
+                                <li class="list-group-item">Dr. Umesh Holani – Ex-President, Indian Accounting Association</li>
+                                <li class="list-group-item">Dr. Ravi Goyal – COO & Director, IEF, CCS NIAM</li>
+                                <li class="list-group-item">Dr. C.S. Barua – Chairman, MBA, IIITM Gwalior</li>
+                                <li class="list-group-item">Dr. R.K. Chaturvedi – Advisor, SRCEM</li>
+                                <li class="list-group-item">Prof. R.N. Singh – Dean, IMT Faridabad</li>
+                                <li class="list-group-item">Mr. Shirish Bavdekar – Global Talent Leader, Dassault</li>
+                                <li class="list-group-item">Dr. Harish Agrawal – Principal, Govt. MLB College</li>
+                                <li class="list-group-item">Mr. Rahul Singhal – Executive Officer, SRGOC</li>
+                                <li class="list-group-item">Dr. S.K. Agrawal – Director, SRCEM</li>
+                                <li class="list-group-item">Prof. R.N. Khatik – Dean, SoS Commerce, Jiwaji University</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mt-4">
+                <div class="col-lg-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-center"><i class="bi bi-people-fill me-2"></i>Conveners</h5>
+                            <ul class="list-group list-group-flush text-center">
+                                <li class="list-group-item">Dr. Lilesh Gautam – Principal, SRSBS</li>
+                                <li class="list-group-item">Dr. Pharindra Kumar Sharma – Head, CSE, SRCEM</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-center"><i class="bi bi-people me-2"></i>Co-Conveners</h5>
+                            <ul class="list-group list-group-flush text-center">
+                                <li class="list-group-item">Dr. K.V.S. Chahar – Assoc. Prof., SRSBS</li>
+                                <li class="list-group-item">Mr. Shyamol Banerjee – Asst. Prof., SRCEM</li>
+                                <li class="list-group-item">Mr. Rahul Singh – Asst. Prof., NIU Noida</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center"><i class="bi bi-diagram-3-fill me-2"></i>Organizing Committee Members</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="list-group list-group-flush text-center">
+                                        <li class="list-group-item">Dr. Kritika Tekwani – IIM Ahmedabad</li>
+                                        <li class="list-group-item">Dr. Prateek Pandey – Jaypee Inst., Guna</li>
+                                        <li class="list-group-item">Dr. Dawan Dubey – MITS</li>
+                                        <li class="list-group-item">Mr. Dhananjay Bisen – MITS</li>
+                                        <li class="list-group-item">Mr. Manoj K. Kushwah – SRCEM</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="list-group list-group-flush text-center">
+                                        <li class="list-group-item">Mr. Rishabh Sachdeva – SRSBS</li>
+                                        <li class="list-group-item">Mr. Mayank Sharma – ITM</li>
+                                        <li class="list-group-item">Mr. Saurabh Shrivastava – ITM</li>
+                                        <li class="list-group-item">Mr. Mridul Sharma – CJET Tech, Pune</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer text-center">
+        <div class="container">
+            <p><strong>Contact:</strong> 8871870676, 9109501917, 7987116714, 7224967096</p>
+            <p><strong>Email:</strong> <a href="mailto:info@praarobotics.org">info@praarobotics.org</a></p>
+            <p><strong>Website:</strong> <a href="http://www.srgoc.org" target="_blank">srgoc.org</a> | <a href="http://www.praarobotic.org" target="_blank">praarobotic.org</a></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add a class to the navbar on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+
+</html>
